@@ -1,0 +1,45 @@
+<?php
+$block = $this->getLayout()->createBlock('Company\CustomerDataMigration\Block\ArchiveOrders\ArchiveOrders');
+?>
+<?php $orders = $block->getArchiveOrders();?>
+    <div class="fieldset-wrapper customer-information">
+        <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Customer Archive Orders') ?></span>
+        </div>
+    </div>
+<?php if ($orders && count($orders)) : ?>
+    <table class="admin__table-secondary">
+        <?php foreach($orders as $order): ?>
+            <tbody>
+            <?php echo $block->getChildHtml(); ?>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Original ID:') ?></th>
+                <td><?= $order->getData('original_id'); ?></td>
+            </tr>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Customer:') ?></th>
+                <td><?= $order->getData('customer'); ?></td>
+            </tr>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Created At:') ?></th>
+                <td><?= date_format(date_create($order->getData('created_at')), "d/m/Y"); ?></td>
+            </tr>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Total Price:') ?></th>
+                <td><?= $order->getData('price').' PLN'; ?></td>
+            </tr>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Status:') ?></th>
+                <td><?= $order->getData('status'); ?></td>
+            </tr>
+            <tr>
+                <th><?php /* @escapeNotVerified */echo __('Products:') ?></th>
+                <td><?= str_replace('"', '', $order->getData('archive_order')); ?></td>
+            </tr>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+<?php else : ?>
+    <div class="message info empty"><span><? /* @escapeNotVerified */echo __('There are no orders. Maybe have not been migrated from previous store.') ?></span></div>
+<?php endif ?>

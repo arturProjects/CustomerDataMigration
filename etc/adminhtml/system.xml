@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customer_data_migration" translate="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Customer Data Migration</label>
+            <tab>Company</tab>
+            <resource>Company_CustomerDataMigration::configuration</resource>
+            <group id="configuration" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="upload_customer_data" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1">
+                <label>Upload and save migrating customers</label>
+                <field id="upload_file_path" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1">
+                    <label>Upload csv file</label>
+                    <backend_model>Company\CustomerDataMigration\Model\Config\Backend\CustomFileType</backend_model>
+                    <upload_dir config="system" scope_info="1">migrated</upload_dir>
+                </field>
+                <field id="save_button" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Company\CustomerDataMigration\Block\System\Config\SaveCustomers</frontend_model>
+                    <label>Save migrating customers</label>
+                </field>
+            </group>
+            <group id="upload_order_data" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1">
+                <label>Upload and save migrating orders</label>
+                <field id="upload_file_path" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="6" showInDefault="1" showInWebsite="1">
+                    <label>Upload csv file</label>
+                    <backend_model>Company\CustomerDataMigration\Model\Config\Backend\CustomFileType</backend_model>
+                    <upload_dir config="system" scope_info="1">orders</upload_dir>
+                </field>
+                <field id="save_button" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Company\CustomerDataMigration\Block\System\Config\SaveOrders</frontend_model>
+                    <label>Save migrating orders</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

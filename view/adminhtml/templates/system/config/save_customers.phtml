@@ -1,0 +1,42 @@
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function(jQuery){
+
+        var collectSpan = jQuery('#save_span');
+
+        jQuery('#save_button').click(function () {
+            var params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                parameters:     params,
+                loaderArea:     false,
+                asynchronous:   true,
+                onCreate: function() {
+                    collectSpan.find('.processing').show();
+                    jQuery('#save_message_span').text('');
+                },
+
+                onSuccess: function(response) {
+                    collectSpan.find('.processing').hide();
+
+                    var resultText = '';
+                    if (response.status > 200) {
+                        resultText = response.statusText;
+                    } else {
+                        resultText = 'Success';
+                        console.log(response);
+                    }
+                    jQuery('#save_message_span').text(resultText);
+                }
+            });
+        });
+
+    });
+</script>
+<?php echo $block->getButtonHtml()?>
+<span class="collect-indicator" id="save_span">
+    <img class="processing" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+    <span id="save_message_span"></span>
+</span>
+
